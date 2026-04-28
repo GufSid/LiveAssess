@@ -24,6 +24,9 @@ public class ExamSession {
 
     private Long examId;
 
+    private Integer violations = 0;
+// Add Getters and Setters
+
     public ExamSession() {}
 
     // =========================
@@ -86,4 +89,11 @@ public class ExamSession {
     }
     public Long getExamId() { return examId; }
     public void setExamId(Long examId) { this.examId = examId; }
+
+    public void setViolations(int violations){
+        this.violations = violations;
+    }
+    public int getViolations (){
+        return violations;
+    }
 }

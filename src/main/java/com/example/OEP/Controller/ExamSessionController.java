@@ -146,4 +146,18 @@ public class ExamSessionController {
         res.put("score", session.getScore());
         return res;
     }
+    @PostMapping("/log-violation")
+    public Map<String, Object> logViolation(@RequestBody Map<String, Object> body) {
+        String userId = (String) body.get("userId");
+        Long examId = Long.parseLong(body.get("examId").toString());
+
+        Optional<ExamSession> sessionOpt = Examrepo.findByUserIdAndExamId(userId, examId);
+        if (sessionOpt.isPresent()) {
+            ExamSession session = sessionOpt.get();
+            session.setViolations(session.getViolations() + 1);
+            Examrepo.save(session);
+            return Map.of("count", session.getViolations());
+        }
+        return Map.of("error", "Session not found");
+    }
 }
